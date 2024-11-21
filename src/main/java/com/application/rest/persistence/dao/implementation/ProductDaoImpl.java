@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductDaoImpl implements ProductDAO {
-    
+
     @Autowired
     private ProductRepository productRepo;
 

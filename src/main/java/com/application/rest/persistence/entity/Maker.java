@@ -25,21 +25,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "fabricantes")
 public class Maker {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fabricante_id")
     private Long id;
-    
+
     @Column(name = "nombre")
     private String name;
-    
-    @OneToMany(
-            mappedBy = "maker",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
+
+    @OneToMany(mappedBy = "maker", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<Product> products;
 }

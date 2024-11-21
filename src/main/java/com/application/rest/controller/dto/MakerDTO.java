@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder 
+@Builder
 public class MakerDTO {
-    
+
     private Long id;
     private String name;
     private List<Product> products;

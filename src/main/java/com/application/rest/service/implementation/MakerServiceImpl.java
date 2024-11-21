@@ -13,7 +13,7 @@ public class MakerServiceImpl implements MakerService {
 
     @Autowired
     private MakerDAO makerDao;
-    
+
     @Override
     public List<Maker> findAll() {
         return makerDao.findAll();

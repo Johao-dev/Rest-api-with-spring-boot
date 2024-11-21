@@ -13,7 +13,7 @@ public class MakerDaoImpl implements MakerDAO {
 
     @Autowired
     private MakerRepository makerRepo;
-    
+
     @Override
     public List<Maker> findAll() {
         return (List<Maker>) makerRepo.findAll();

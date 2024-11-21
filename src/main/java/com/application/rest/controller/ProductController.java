@@ -21,70 +21,70 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    
+
     @Autowired
     private ProductService productService;
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
-        
-        if(productOptional.isPresent()) {
+
+        if (productOptional.isPresent()) {
             Product product = productOptional.get();
-            
+
             ProductDTO productDTO = ProductDTO.builder()
                     .id(product.getId())
                     .name(product.getName())
                     .price(product.getPrice())
                     .maker(product.getMaker())
                     .build();
-            
+
             return ResponseEntity.ok(productDTO);
         }
         return ResponseEntity.notFound().build();
     }
-    
+
     @GetMapping
     public ResponseEntity<?> findAll() {
         List<ProductDTO> productsDTO = productService.findAll()
                 .stream()
                 .map(product -> ProductDTO.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .price(product.getPrice())
-                    .maker(product.getMaker())
-                    .build())
+                        .id(product.getId())
+                        .name(product.getName())
+                        .price(product.getPrice())
+                        .maker(product.getMaker())
+                        .build())
                 .toList();
-        
+
         return ResponseEntity.ok(productsDTO);
     }
-    
+
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO) 
+    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO)
             throws URISyntaxException {
-        
-        if(productDTO.getName().isBlank()
-                || productDTO.getPrice() == null 
+
+        if (productDTO.getName().isBlank()
+                || productDTO.getPrice() == null
                 || productDTO.getMaker() == null)
             return ResponseEntity.badRequest().build();
-        
+
         productService.save(Product.builder()
                 .name(productDTO.getName())
                 .price(productDTO.getPrice())
                 .maker(productDTO.getMaker())
                 .build());
-        
+
         return ResponseEntity.created(new URI("/api/products")).build();
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateMaker(
             @PathVariable Long id,
             @RequestBody ProductDTO productDTO) {
-        
+
         Optional<Product> productOptional = productService.findById(id);
-        
-        if(productOptional.isPresent()) {
+
+        if (productOptional.isPresent()) {
             Product product = productOptional.get();
             product.setName(productDTO.getName());
             product.setMaker(productDTO.getMaker());
@@ -92,18 +92,18 @@ public class ProductController {
             productService.save(product);
             return ResponseEntity.ok("Registro actualizado");
         }
-        
+
         return ResponseEntity.notFound().build();
     }
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        
-        if(id != null) {
+
+        if (id != null) {
             productService.deleteById(id);
             return ResponseEntity.ok("registro eliminado");
         }
-        
+
         return ResponseEntity.badRequest().build();
     }
 }

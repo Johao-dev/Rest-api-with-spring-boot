@@ -24,18 +24,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "productos")
 public class Product {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "producto_id")
     private Long id;
-    
+
     @Column(name = "nombre")
     private String name;
-    
+
     @Column(name = "precio")
     private BigDecimal price;
-    
+
     @ManyToOne
     @JoinColumn(name = "fabricante_id")
     @JsonIgnore
