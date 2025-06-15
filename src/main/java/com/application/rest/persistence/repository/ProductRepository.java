@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
     // query method
-    List<Product> findProductByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+    // List<Product> findProductByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 
     // con anotacion @Query
     @Query("SELECT p FROM Product p WHERE p.price BETWEEN ?1 AND ?2")

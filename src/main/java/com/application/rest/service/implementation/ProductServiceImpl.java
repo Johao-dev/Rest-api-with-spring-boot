@@ -1,7 +1,7 @@
 package com.application.rest.service.implementation;
 
-import com.application.rest.persistence.dao.ProductDAO;
 import com.application.rest.persistence.entity.Product;
+import com.application.rest.persistence.repository.ProductRepository;
 import com.application.rest.service.ProductService;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductDAO productDao;
+    private ProductRepository productDao;
 
     @Override
     public List<Product> findAll() {
-        return productDao.findAll();
+        return (List<Product>) productDao.findAll();
     }
 
     @Override
@@ -37,6 +37,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByPriceInRange(BigDecimal minPrice, BigDecimal maxPrice) {
-        return productDao.findByPriceInRange(minPrice, maxPrice);
+        return productDao.findProductByPriceInRange(minPrice, maxPrice);
     }
 }

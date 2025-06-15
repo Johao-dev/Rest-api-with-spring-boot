@@ -1,7 +1,7 @@
 package com.application.rest.service.implementation;
 
-import com.application.rest.persistence.dao.MakerDAO;
 import com.application.rest.persistence.entity.Maker;
+import com.application.rest.persistence.repository.MakerRepository;
 import com.application.rest.service.MakerService;
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class MakerServiceImpl implements MakerService {
 
     @Autowired
-    private MakerDAO makerDao;
+    private MakerRepository makerDao;
 
     @Override
     public List<Maker> findAll() {
-        return makerDao.findAll();
+        return (List<Maker>) makerDao.findAll();
     }
 
     @Override
