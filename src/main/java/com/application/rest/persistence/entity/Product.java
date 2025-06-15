@@ -9,6 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,13 +37,18 @@ public class Product {
     private Long id;
 
     @Column(name = "nombre")
+    @Size(min = 2, max = 128)
+    @NotBlank
     private String name;
 
     @Column(name = "precio")
+    @Positive(message = "price cannot be 0 or less")
+    @Min(value = 100)
     private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "fabricante_id")
     @JsonIgnore
+    @NotNull
     private Maker maker;
 }
