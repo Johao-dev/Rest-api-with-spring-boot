@@ -3,40 +3,42 @@ package com.application.rest.service.implementation;
 import com.application.rest.persistence.entity.Product;
 import com.application.rest.persistence.repository.ProductRepository;
 import com.application.rest.service.ProductService;
-import java.math.BigDecimal;
+import com.application.rest.service.dto.Range;
+
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productDao;
+    private final ProductRepository productRepository;
 
     @Override
     public List<Product> findAll() {
-        return (List<Product>) productDao.findAll();
+        return (List<Product>) productRepository.findAll();
     }
 
     @Override
     public Optional<Product> findById(Long id) {
-        return productDao.findById(id);
+        return productRepository.findById(id);
     }
 
     @Override
     public void save(Product product) {
-        productDao.save(product);
+        productRepository.save(product);
     }
 
     @Override
     public void deleteById(Long id) {
-        productDao.deleteById(id);
+        productRepository.deleteById(id);
     }
 
     @Override
-    public List<Product> findByPriceInRange(BigDecimal minPrice, BigDecimal maxPrice) {
-        return productDao.findProductByPriceInRange(minPrice, maxPrice);
+    public List<Product> findByPriceInRange(Range range) {
+        return productRepository.findProductByPriceInRange(range.getMinValue(), range.getMaxValue());
     }
 }

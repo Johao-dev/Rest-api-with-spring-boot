@@ -1,7 +1,8 @@
 package com.application.rest.service;
 
 import com.application.rest.persistence.entity.Product;
-import java.math.BigDecimal;
+import com.application.rest.service.dto.Range;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,5 +16,5 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    List<Product> findByPriceInRange(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Product> findByPriceInRange(Range range);
 }
